@@ -15,7 +15,7 @@ def cluster_locations(list_coord, distance_threshold, dist_method, clust_start):
     if dist_method == 'euclidian':
         Z = ward(pdist(np.stack(list_coord)))
     else:
-        Z = ward(pdist(np.stack(list_coord), metric=routing.distance.distance_picking_cluster))
+        Z = ward(pdist(np.stack(list_coord), metric=routing.distances.distance_picking_cluster))
     # Single cluster array
     fcluster1 = fcluster(Z, t=distance_threshold, criterion='distance')
     return fcluster1

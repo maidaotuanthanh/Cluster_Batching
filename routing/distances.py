@@ -8,9 +8,14 @@ def distance_picking(Loc1, Loc2, y_low, y_high):
     """ Calculate Picker Route Distance between two locations"""
     # Start Point
     x1, y1 = Loc1[0], Loc1[1]
+    # print(f"x1: {x1}")
+    print(f"y1: {y1}")
+
     x2, y2 = Loc2[0], Loc2[1]
+    print(f"y2: {y2}")
+    # print(f"x2: {x2}")
     # Distance x-axis
-    distance_x = abs(x2 - x1)
+    distance_x = abs(x2[0] - x1)
     # Distance y-axis
     if x1 == x2:
         distance_y1 = abs(y2 - y1)
@@ -30,11 +35,11 @@ def next_location(start_loc, list_locs, y_low, y_high):
     # Distance to every next points candidate
     list_dist = [distance_picking(start_loc, i, y_low, y_high) for i in list_locs]
     # Minimum Distance
+    print("List locs", list_locs)
     distance_next = min(list_dist)
     # Location of minimum distance
     index_min = list_dist.index(min(list_dist))
     next_loc = list_locs[index_min]
-    list_locs.remove(next_loc)
     return list_locs, start_loc, next_loc, distance_next
 
 

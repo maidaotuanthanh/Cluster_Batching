@@ -172,3 +172,4 @@ def process_methods(df_reswave1, df_reswave2, df_reswave3, lines_number, distanc
     plt.show()
 
     return df_reswave
+

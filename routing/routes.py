@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import itertools
 from ast import literal_eval
-import routing.distance
+import routing.distances
 
 
 def create_picking_route(origin_loc, list_locs, y_low, y_high):
@@ -17,7 +17,7 @@ def create_picking_route(origin_loc, list_locs, y_low, y_high):
 
     while len(list_locs) > 0:  # Looping until all locations are picked
         # Going to next location
-        list_locs, start_loc, next_loc, distance_next = routing.distance.next_location(start_loc, list_locs, y_low,
+        list_locs, start_loc, next_loc, distance_next = routing.distances.next_location(start_loc, list_locs, y_low,
                                                                                        y_high)
         # Update start_loc
         start_loc = next_loc
@@ -26,7 +26,7 @@ def create_picking_route(origin_loc, list_locs, y_low, y_high):
         wave_distance = wave_distance + distance_next
 
     # Final distance from last storage location to origin
-    wave_distance = wave_distance + routing.distance.distance_picking(start_loc, origin_loc, y_low, y_high)
+    wave_distance = wave_distance + routing.distances.distance_picking(start_loc, origin_loc, y_low, y_high)
     list_chemin.append(origin_loc)
 
     return wave_distance, list_chemin
@@ -45,7 +45,7 @@ def create_picking_route_cluster(origin_loc, list_locs, y_low, y_high):
     list_chemin.append(start_loc)
     while len(list_locs) > 0:  # Looping until all locations are picked
         # Going to next location
-        list_locs, start_loc, next_loc, distance_next = routing.distance.next_location(start_loc, list_locs, y_low, y_high)
+        list_locs, start_loc, next_loc, distance_next = routing.distances.next_location(start_loc, list_locs, y_low, y_high)
         # Update start_loc
         start_loc = next_loc
         list_chemin.append(start_loc)
@@ -54,7 +54,7 @@ def create_picking_route_cluster(origin_loc, list_locs, y_low, y_high):
         # Update distance
         wave_distance = wave_distance + distance_next
     # Final distance from last storage location to origin
-    wave_distance = wave_distance + routing.distance.distance_picking(start_loc, origin_loc, y_low, y_high)
+    wave_distance = wave_distance + routing.distances.distance_picking(start_loc, origin_loc, y_low, y_high)
     list_chemin.append(origin_loc)
     return wave_distance, list_chemin, distance_max
 
