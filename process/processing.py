@@ -20,10 +20,12 @@ def process_lines(df_orderlines):
 
     return df_mono, df_multi
 
+
 def monomult_concat(df_mono, df_multi):
     """ Concat mono-line and multi-lines orders"""
     # Original Coordinate for mono
     df_mono['Coord_Cluster'] = df_mono['Coord']
+    # df_mono.loc['Coord_Cluster'] = df_mono.loc['Coord']
     # Dataframe Concatenation
     df_orderlines = pd.concat([df_mono, df_multi])
     # Counting number of Waves

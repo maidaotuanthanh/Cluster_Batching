@@ -44,6 +44,7 @@ def create_picking_route_cluster(origin_loc, list_locs, y_low, y_high):
     list_chemin = []
     list_chemin.append(start_loc)
     while len(list_locs) > 0:  # Looping until all locations are picked
+        print("list_locs", list_locs)
         # Going to next location
         list_locs, start_loc, next_loc, distance_next = routing.distances.next_location(start_loc, list_locs, y_low, y_high)
         # Update start_loc

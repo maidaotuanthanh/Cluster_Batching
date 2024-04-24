@@ -8,6 +8,7 @@ import cluster.mapping_cluster
 import cluster.simulation_cluster
 import results.plot
 import streamlit as st
+# import batch.simulation_batch
 
 # Set page configuration
 st.set_page_config(page_title="Improve Warehouse Productivity using Order Batching",
@@ -55,26 +56,26 @@ with col2:
     lines_number = 1000 * n
     st.write('''🛠️{:,} \
 		order lines'''.format(lines_number))
-# SIMULATION PARAMETERS
-st.subheader('''
-        SIMULATE ORDER PICKING BY WAVE OF N ORDERS PER WAVE WITH N IN [N_MIN, N_MAX] ''')
-col_11, col_22 = st.columns(2)
-with col_11:
-    n1 = st.slider(
-        'SIMULATION 1: N_MIN (ORDERS/WAVE)', 0, 20, value=1)
-    n2 = st.slider(
-        'SIMULATION 1: N_MAX (ORDERS/WAVE)', n1 + 1, 20, value=int(np.max([n1 + 1, 10])))
-with col_22:
-    st.write('''[N_MIN, N_MAX] = [{:,}, {:,}]'''.format(n1, n2))
-# START CALCULATION
-# start_1 = False
-# if st.checkbox('SIMULATION 1: START CALCULATION', key='show', value=False):
-#     start_1 = True
-# # Calculation
-# if start_1:
-#     df_orderlines = load('df_lines.csv', lines_number)
-#     df_waves, df_results = simulate_batch(n1, n2, y_low, y_high, origin_loc, lines_number, df_orderlines)
-#     plot_simulation1(df_results, lines_number)
+    # SIMULATION PARAMETERS
+    st.subheader('''
+            SIMULATE ORDER PICKING BY WAVE OF N ORDERS PER WAVE WITH N IN [N_MIN, N_MAX] ''')
+    col_11, col_22 = st.columns(2)
+    with col_11:
+        n1 = st.slider(
+            'SIMULATION 1: N_MIN (ORDERS/WAVE)', 0, 20, value=1)
+        n2 = st.slider(
+            'SIMULATION 1: N_MAX (ORDERS/WAVE)', n1 + 1, 20, value=int(np.max([n1 + 1, 10])))
+    with col_22:
+        st.write('''[N_MIN, N_MAX] = [{:,}, {:,}]'''.format(n1, n2))
+    # # START CALCULATION
+    # start_1 = False
+    # if st.checkbox('SIMULATION 1: START CALCULATION', key='show', value=False):
+    #     start_1 = True
+    # # Calculation
+    # if start_1:
+    #     df_orderlines = load('df_lines.csv', lines_number)
+    #     df_waves, df_results = batch.simulation_batch.simulate_batch(n1, n2, y_low, y_high, origin_loc, lines_number, df_orderlines)
+    #     results.plot.plot_simulation1(df_results, lines_number)
 
 # Simulation 2: Order Batch using Spatial Clustering
 # SCOPE SIZE
@@ -97,5 +98,6 @@ if st.checkbox('SIMULATION 2: START CALCULATION', key='show_2', value=False):
 # Calculation
 if start_2:
     df_orderlines = load('df_lines.csv', lines_2)
-    df_reswave, df_results = cluster.simulation_cluster.simulation_cluster(y_low, y_high, df_orderlines, list_results, n1, n2, distance_threshold)
+    df_reswave, df_results = cluster.simulation_cluster.simulation_cluster(y_low, y_high, df_orderlines, list_results,
+                                                                           n1, n2, distance_threshold)
     results.plot.plot_simulation2(df_reswave, lines_2, distance_threshold)
